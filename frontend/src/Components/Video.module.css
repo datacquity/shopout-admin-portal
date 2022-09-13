@@ -1,0 +1,54 @@
+.Video{
+    border: 2px solid #000;
+    border-radius: 10px;
+    color: #000;
+    margin: 50px 26rem;
+    padding: 20px;
+}
+
+.Video .content label{
+    display: block;
+    margin: 10px 10px;
+}
+
+.Video .content input , .Video .content select , .Video .content textarea{
+    margin: 5px;
+    width: 250px;
+    height: 25px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.Video .content .selects select{
+    height: 40px;
+    width: 300px;
+}
+
+.Video .content .selects option{
+    color: #fff;
+    background-color: #0d0d50;
+    text-align: center;
+}
+
+.Video .blueButton{
+    display: block;
+    background-color: #393996;
+    margin: 20px auto;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.Video .blueButton:hover{
+    cursor: pointer;
+    background-color: #0d0d50;
+    text-decoration: underline;
+}
+
+.Video .content textarea{
+    height: 100px;
+    width: 250px;
+}

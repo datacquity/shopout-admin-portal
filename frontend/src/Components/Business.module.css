@@ -1,0 +1,68 @@
+.Business{
+    border: 2px solid #000;
+    border-radius: 10px;
+    color: #000;
+    margin: 50px 26rem;
+    padding: 20px;
+}
+
+.Business .content label{
+    display: block;
+    margin: 10px 10px;
+}
+
+.Business .content input , .Business .content select , .Business .content textarea{
+    margin: 5px;
+    width: 250px;
+    height: 25px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.Business .content textarea{
+    height: 100px;
+    width: 250px;
+}
+
+.Business .content select{
+    height: 40px;
+    width: 300px;
+}
+
+.Business .content option{
+    color: #fff;
+    background-color: #0d0d50;
+    text-align: center;
+}
+
+.Business .content button{
+    display: block;
+    background-color: #393996;
+    margin: 20px auto;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.Business .content button:hover{
+    cursor: pointer;
+    background-color: #0d0d50;
+    text-decoration: underline;
+}
+
+.Business .hasCallNow .form{
+    display: inline !important;
+}
+
+.Business .hasCallNow .form input {
+    margin: 5px !important;
+    width: 70px !important;
+}
+
+.Business .hasCallNow .mb{
+    display: flex;
+    justify-content: center;
+}

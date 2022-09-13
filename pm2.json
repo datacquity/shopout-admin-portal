@@ -1,0 +1,9 @@
+{
+	"apps": [
+		{
+			"name": "shopout-staging",
+			"script": "npm",
+			"args": "start"
+		}
+	]
+}

@@ -1,0 +1,68 @@
+@import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+
+.Events{
+    border: 2px solid #000;
+    border-radius: 10px;
+    color: #000;
+    margin: 50px 26rem;
+    padding: 20px;
+}
+
+.Events .content label{
+    display: block;
+    margin: 10px 10px;
+}
+
+.Events .content input , .Events .content select , .Events .content textarea{
+    margin: 5px;
+    width: 250px;
+    height: 25px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.Events .content .selects select{
+    height: 40px;
+    width: 300px;
+}
+
+.Events .content .selects option{
+    color: #fff;
+    background-color: #0d0d50;
+    text-align: center;
+}
+
+.Events .blueButton{
+    display: block;
+    background-color: #393996;
+    margin: 20px auto;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.Events .blueButton:hover{
+    cursor: pointer;
+    background-color: #0d0d50;
+    text-decoration: underline;
+}
+
+.Events .content textarea{
+    height: 100px;
+    width: 250px;
+}
+
+.calenderDatePicker select {
+    width: 50px !important;
+}
+
+.calenderDatePicker .react-datetime-picker__wrapper{
+    border-radius: 10px !important;
+}

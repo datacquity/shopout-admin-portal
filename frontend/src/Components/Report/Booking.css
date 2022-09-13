@@ -1,0 +1,34 @@
+.Bookings{
+    /* border: 2px solid #000; */
+    border-radius: 10px;
+    color: #000;
+    margin: 29px 26rem;
+    padding: 20px;
+    padding-top: 5px;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+}
+
+.Bookings .content label{
+    display: inline;
+    /* margin: 10px 10px; */
+}
+
+.datepicker{
+    display: inline;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+.booking-table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}

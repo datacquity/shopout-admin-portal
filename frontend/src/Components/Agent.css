@@ -1,0 +1,60 @@
+.Agent{
+    border: 2px solid #000;
+    border-radius: 10px;
+    color: #000;
+    margin: 50px 26rem;
+    padding: 20px;
+}
+
+.Agent .content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+.Agent .content label{
+    display: block;
+    margin: 10px 10px;
+}
+
+.Agent .content input , .Agent .content select{
+    margin: 5px;
+    width: 250px;
+    height: 25px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.Agent .content select{
+    height: 40px;
+    width: 300px;
+}
+
+.Agent .content option{
+    color: #fff;
+    background-color: #0d0d50;
+    text-align: center;
+}
+
+.Agent .content button{
+    display: block;
+    background-color: #393996;
+    margin: 20px auto;
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.Agent .content button:hover{
+    cursor: pointer;
+    background-color: #0d0d50;
+    text-decoration: underline;
+}
+
+.Agent .e-input-group{
+    width: 280px !important;
+}

@@ -1,0 +1,41 @@
+
+
+.Events{
+    /* border: 2px solid #000; */
+    border-radius: 10px;
+    color: #000;
+    margin: 29px 26rem;
+    padding: 20px;
+    padding-top: 5px;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+.Events .content label{
+    display: inline;
+    /* margin: 10px 10px; */
+}
+
+.datepicker{
+    display: inline;
+}
+
+.table-event{
+    padding-top: 10px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+.event-table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
