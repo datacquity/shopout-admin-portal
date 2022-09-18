@@ -59,9 +59,9 @@ const Product = () => {
 					.then((data) => {
 						console.log(data);
 						// console.log(data.demobooking.length);
-						const eventLength = data.demobooking.length;
+						const eventLength = data.demoBookings.length;
 						// console.log(eventLength);
-						const events = data.demobooking;
+						const events = data.demoBookings;
 						// console.log(typeof events);
 						var eventList1 =
 							eventLength > 0 &&
