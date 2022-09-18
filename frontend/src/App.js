@@ -13,6 +13,8 @@ import Event from "./Components/Report/Event.jsx";
 import Booking from "./Components/Report/Booking.jsx";
 import Product from "./Components/Product/Product.jsx";
 import EventUsers from "./Components/Event/Users.jsx";
+import Orders from "./Components/Orders/Orders";
+
 function App() {
 	return (
 		<div className="App">
@@ -35,6 +37,7 @@ function App() {
 					<Route exact path="/video" element={<Video />}></Route>
 					<Route exact path="/report" element={<Report />}></Route>
 					<Route exact path="/event" element={<Event />}></Route>
+					<Route exact path="/orders" element={<Orders />}></Route>
 					<Route exact path="/booking" element={<Booking />}></Route>
 					<Route exact path="/product" element={<Product />}></Route>
 					<Route exact path="/users" element={<EventUsers />}></Route>

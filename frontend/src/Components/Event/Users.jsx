@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { parse } from "json2csv";
+import DownloadCSV from "../UI/DownloadCSV";
 import "./Users.css";
 
 const EventUsers = () => {
@@ -32,13 +33,11 @@ const EventUsers = () => {
 	}, []);
 
 	const convertToCSV = () => {
-		console.log(eventDetails);
 		const columnNames = Object.keys(eventDetails.customers[0]);
 		const opts = { fields: columnNames };
 		console.log(opts);
 		try {
 			const csv = parse(eventDetails.customers, opts);
-			console.log(csv);
 			setCSV(csv);
 		} catch (error) {
 			console.log(error);
@@ -74,14 +73,11 @@ const EventUsers = () => {
 							</tr>
 						);
 					})}
-					<a
-						href={`data:text/csv;charset=utf-8,${csv}`}
-						className="csv-download-btn"
-						onClick={convertToCSV}
-						download={`${eventDetails.eventName}.csv`}
-					>
-						Download CSV
-					</a>
+					<DownloadCSV
+						convertToCSV={convertToCSV}
+						csv={csv}
+						eventDetails={eventDetails}
+					/>
 				</tbody>
 			) : (
 				""

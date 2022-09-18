@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Event.css";
 import DatePicker from "react-datepicker";
-import { Button, Container, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+// import { Button, Container, Table } from "react-bootstrap";
 
 const Event = () => {
 	const [data, setData] = useState([]);
+	const [filtered, setFiltered] = useState([]);
 	const [startDate, setStartDate] = useState();
 	const [endDate, setEndDate] = useState();
 
 	const navigate = useNavigate();
-
-	console.log(startDate);
-	console.log(endDate);
 
 	useEffect(() => {
 		fetchData();
@@ -22,32 +20,26 @@ const Event = () => {
 		await fetch("/user/demoBooking/get/all-demo-booking")
 			.then((res) => res.json())
 			.then((response) => {
-				console.log(response);
-				console.log(response.demoBookings);
 				setData(response.demoBookings);
 			});
 	};
 
 	function convert_date(s) {
 		var newdate = new Date(Date.parse(s));
-
 		return newdate.toLocaleString();
 	}
 
-	const filtered =
-		!startDate || !endDate
-			? data
-			: data.filter((a) => {
-					var date = new Date(a.demoDate);
-					return date >= startDate && date <= endDate;
-			  });
-	console.log(filtered);
+	const filterEvents = () => {
+		const filtered =
+			!startDate || !endDate
+				? data
+				: data.filter((event) => {
+						const date = new Date(event.demoDate);
+						return date <= endDate && date >= startDate;
+				  });
 
-	// var resultProductData = data.filter(a => {
-	//   var date = new Date(a.demoDate);
-	//   return (date >= startDate && date <= endDate);
-	// });
-	// console.log(resultProductData)
+		setFiltered(filtered);
+	};
 
 	const handleEventClick = (id) => {
 		navigate("/users", { state: { id } });
@@ -76,6 +68,7 @@ const Event = () => {
 						dateFormat="MMMM d, yyyy"
 					/>
 				</div>
+				<button onClick={filterEvents}>Filter</button>
 			</div>
 
 			<div className="event-table">
@@ -88,27 +81,27 @@ const Event = () => {
 						<th>Event Status</th>
 					</tr>
 
-					{/* {filtered.map((item, i) => {
-						return (
-							<tr key={i}>
-								<td>{item.business}</td>
-								<td>{item.demoName}</td>
-								<td>{convert_date(item.demoDate)}</td>
-								<td>{item.customers.length}</td>
-								<td>Upcoming</td>
-							</tr>
-						);
-					})} */}
-
-					{data.map((item, i) => (
-						<tr key={i} onClick={() => handleEventClick(item._id)}>
-							<td>{item.business}</td>
-							<td>{item.demoName}</td>
-							<td>{convert_date(item.demoDate)}</td>
-							<td>{item.customers.length}</td>
-							<td>Upcoming</td>
-						</tr>
-					))}
+					{filtered.length
+						? filtered.map((item, i) => {
+								return (
+									<tr key={i} onClick={() => handleEventClick(item._id)}>
+										<td>{item.business}</td>
+										<td>{item.demoName}</td>
+										<td>{convert_date(item.demoDate)}</td>
+										<td>{item.customers.length}</td>
+										<td>Upcoming</td>
+									</tr>
+								);
+						  })
+						: data.map((item, i) => (
+								<tr key={i} onClick={() => handleEventClick(item._id)}>
+									<td>{item.business}</td>
+									<td>{item.demoName}</td>
+									<td>{convert_date(item.demoDate)}</td>
+									<td>{item.customers.length}</td>
+									<td>Upcoming</td>
+								</tr>
+						  ))}
 				</tbody>
 			</div>
 		</>

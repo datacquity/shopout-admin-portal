@@ -62,7 +62,7 @@ app.use("/admin", adminRoute);
 
 __dirname = path.resolve();
 
-let node_env = "production";
+let node_env = "development";
 
 if (node_env === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/build")));
@@ -113,11 +113,11 @@ if (node_env === "production") {
 //   })
 // );
 
-const { DB_PRODUCTION } = process.env;
+const { DB_TEST_DATA } = process.env;
 const PORT = process.env.PORT * 1 || 5000;
 
 mongoose.connect(
-	DB_PRODUCTION,
+	DB_TEST_DATA,
 	{
 		useFindAndModify: false,
 		useNewUrlParser: true,

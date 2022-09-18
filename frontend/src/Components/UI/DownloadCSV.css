@@ -1,0 +1,18 @@
+.csv-download-btn {
+	position: absolute;
+	top: 13.7rem;
+	right: 23rem;
+	background-color: rgb(88, 186, 88);
+	color: white;
+	border: none;
+	font-size: 1rem;
+	border-radius: 6px;
+	text-decoration: none;
+	padding: 1rem;
+	transition: all 0.3s ease-in-out;
+}
+
+.csv-download-btn:hover {
+	background-color: rgb(176, 241, 176);
+	color: black;
+}

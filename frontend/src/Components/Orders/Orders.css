@@ -1,21 +1,19 @@
-.Events {
-	/* border: 2px solid #000; */
-	border-radius: 10px;
-	color: #000;
-	margin: 29px 26rem;
-	padding: 20px;
-	padding-top: 5px;
+.orders {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
-.content {
+.order-filter {
 	display: flex;
 	flex-direction: row;
-	padding: 10px;
+	padding: 30px;
 }
 
-.Events .content label {
+.order-filter label {
 	display: inline;
-	/* margin: 10px 10px; */
+	margin: 0 10px;
 }
 
 .datepicker {
