@@ -6,6 +6,11 @@ const nanoid = customAlphabet(alphabet, 7);
 const { Schema } = mongoose;
 
 const demoBookingSchema = new Schema({
+	isFashion: {
+		type: Boolean,
+		required: true,
+		default: false,
+	},
 	demoId: {
 		type: String,
 		default: () => nanoid(),

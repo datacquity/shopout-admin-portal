@@ -34,6 +34,11 @@ const businessSchema = new Schema({
 	images: [],
 	category: String,
 	oldCategory: String,
+	isFashion: {
+		type: Boolean,
+		required: true,
+		default: false,
+	},
 	tags: [
 		{
 			type: String,

@@ -1,60 +1,75 @@
 const router = require("express").Router();
 
-const Product = require('../../../models/entities/product-schema');
+const Product = require("../../../models/entities/product-schema");
 
-const DemoBooking = require('../../../models/operations/demo-booking-schema');
+const DemoBooking = require("../../../models/operations/demo-booking-schema");
 
 // creating product for demo-booking event
-router.post('/create', async (req, res) => {
-    try {
+router.post("/create", async (req, res) => {
+	try {
+		const { productData } = req.body;
 
-        const { productData } = req.body;
+		// let demobooking = productData.name;
 
-        // let demobooking = productData.name;
+		DemoBooking.findOne({ _id: productData.event }, (err, foundBooking) => {
+			// console.log("data:", foundBooking);
+			const {
+				image,
+				quantity,
+				price,
+				discount,
+				deliveryCharge,
+				variants,
+				cgst,
+				sgst,
+				remark,
+				isFashion,
+			} = productData;
 
-        DemoBooking.findOne({ _id: productData.event }, (err, foundBooking) => {
-            // console.log("data:", foundBooking);
-
-            if (err) console.error(err);
-            else if (foundBooking) {
-                let newProduct = new Product({
-                    name: foundBooking.demoName,
-                    event: foundBooking._id,
-                    image: productData.image,
-                    desc: foundBooking.description,
-                    quantity: productData.quantity,
-                    price: productData.price,
-                    discount: productData.discount,
-                    deliveryCharge: productData.deliveryCharge,
-                    variants: productData.variants,
-                    cgst: productData.cgst,
-                    sgst: productData.sgst,
-                    remark: productData.remark
-                });
-                if (newProduct.variants.length !== newProduct.price.length) {
-                    res.status(400).json({
-                        "error": "Please add data properly"
-                    })
-                }
-                else if (newProduct.price.length !== newProduct.deliveryCharge.length) {
-                    res.status(400).json({
-                        "error": "Please add data properly"
-                    })
-                }
-                else {
-                    newProduct.save((err, savedProduct) => {
-                        if (err) {
-                            console.error("Error before Saving Product", err);
-                        }
-                        res.json({ success: "New Product is created for demo-booking.", product: savedProduct });
-                    });
-                }
-            }
-        });
-
-    } catch (e) {
-        console.log('Error !!', e);
-    }
-})
+			if (err) console.error(err);
+			else if (foundBooking) {
+				const { demoName, _id, description } = foundBooking;
+				let newProduct = new Product({
+					name: demoName,
+					event: _id,
+					desc: description,
+					image,
+					quantity,
+					price,
+					isFashion,
+					discount,
+					deliveryCharge,
+					variants,
+					cgst,
+					sgst,
+					remark,
+				});
+				if (newProduct.variants.length !== newProduct.price.length) {
+					res.status(400).json({
+						"error": "Please add data properly",
+					});
+				} else if (
+					newProduct.price.length !== newProduct.deliveryCharge.length
+				) {
+					res.status(400).json({
+						"error": "Please add data properly",
+					});
+				} else {
+					newProduct.save((err, savedProduct) => {
+						if (err) {
+							console.error("Error before Saving Product", err);
+						}
+						res.json({
+							success: "New Product is created for demo-booking.",
+							product: savedProduct,
+						});
+					});
+				}
+			}
+		});
+	} catch (e) {
+		console.log("Error !!", e);
+	}
+});
 
 module.exports = router;

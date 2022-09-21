@@ -12,12 +12,28 @@ const bcrypt = require("bcrypt");
 
 router.post("/store", async (req, res) => {
 	try {
-		const { storeData } = req.body;
+		let {
+			business,
+			working_days,
+			name,
+			phone,
+			email,
+			physical_enabled,
+			virtual_enabled,
+			capacity,
+			location_desc,
+			lat,
+			long,
+			city,
+			start,
+			end,
+			startTime,
+			isFashion,
+		} = req.body.storeData;
 
 		bcrypt.hash("shopout@123", 12).then((hashedPassword) => {
-			let business = storeData.business.toLowerCase();
-			let working_days;
-			if (storeData.working_days.length == 6) {
+			business = business.toLowerCase();
+			if (working_days.length === 6) {
 				working_days = [1, 2, 3, 4, 5, 6];
 			} else {
 				working_days = [1, 2, 3, 4, 5, 6, 7];
@@ -26,21 +42,24 @@ router.post("/store", async (req, res) => {
 			Business.findOne({ name: business }, (err, foundBusiness) => {
 				if (err) console.error(err);
 				else if (foundBusiness) {
+					const { _id, tags, description, category } = foundBusiness;
+
 					let newStore = new Store({
-						name: storeData.name,
-						business: foundBusiness._id,
-						tags: foundBusiness.tags,
-						description: foundBusiness.description,
-						category: foundBusiness.category,
+						name,
+						business: _id,
+						tags,
+						description,
+						category,
 						images: [],
 						avg_rating: 4,
-						phone: storeData.phone,
+						phone,
 						password: hashedPassword,
-						email: storeData.email,
-						physical_enabled: storeData.physical_enabled,
-						virtual_enabled: storeData.virtual_enabled,
-						capacity: storeData.capacity,
-						working_days: working_days,
+						email,
+						physical_enabled,
+						virtual_enabled,
+						capacity,
+						working_days,
+						isFashion,
 						parameters: [
 							{
 								title: "Mandatory Masks",
@@ -68,23 +87,23 @@ router.post("/store", async (req, res) => {
 								numberOfRatings: 0,
 							},
 						],
-						location_desc: storeData.location_desc,
+						location_desc,
 						location: {
 							type: "Point",
-							coordinates: [storeData.long, storeData.lat],
+							coordinates: [long, lat],
 						},
-						city: storeData.city,
+						city,
 						active_hours: [
 							{
-								start: storeData.start,
-								end: storeData.end,
+								start,
+								end,
 							},
 						],
 						slots: {
-							startTime: storeData.startTime,
+							startTime,
 						},
 						video_slots: {
-							startTime: storeData.startTime,
+							startTime,
 						},
 					});
 					console.log(newStore);
