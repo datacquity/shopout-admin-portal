@@ -1,11 +1,5 @@
 const router = require("express").Router();
-
-// const Store = require('../../../models/entities/store-schema');
-
 const Store = require("../../../models/entities/store-schema");
-
-// Business = require("./models/business-schema")
-
 const Business = require("../../../models/entities/business-schema");
 
 const bcrypt = require("bcrypt");
@@ -106,7 +100,7 @@ router.post("/store", async (req, res) => {
 							startTime,
 						},
 					});
-					console.log(newStore);
+
 					newStore.save((err, savedStore) => {
 						if (err) {
 							console.error("Error before finding store", err);
@@ -126,9 +120,6 @@ router.post("/store", async (req, res) => {
 				}
 			}); //end of business save
 		});
-		// res.send(savedStore);
-		// res.status(200).json({newStore});
-		// res.status(200);
 	} catch (e) {
 		res.json("error");
 	}

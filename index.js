@@ -5,7 +5,6 @@ const express = require("express");
 
 const app = express();
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -28,6 +27,10 @@ const {
 	dispatchSingleNotification,
 } = require("./utils/notification-dispatcher");
 const reportScript = require("./utils/Report/report");
+const connectDB = require("./config/db");
+const PORT = process.env.PORT * 1 || 5000;
+
+connectDB();
 
 // Security and HTTP headers
 app.use(helmet());
@@ -112,23 +115,6 @@ if (node_env === "production") {
 //     allowedHeaders : 'Content-Type'
 //   })
 // );
-
-const { DB_TEST_DATA } = process.env;
-const PORT = process.env.PORT * 1 || 5000;
-
-mongoose.connect(
-	DB_TEST_DATA,
-	{
-		useFindAndModify: false,
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-	},
-	(err) => {
-		if (err) console.error(`Error!${err}`);
-		else console.log("Database connection successful");
-	},
-);
 
 notificationScript();
 
