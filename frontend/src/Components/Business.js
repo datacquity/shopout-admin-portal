@@ -16,6 +16,7 @@ function Business() {
   const [hasCallNow, setHasCallNow] = useState(false);
   const [image, setImage] = useState("");
   const [imageList, setImageList] = useState([]);
+  const [isFashion, setIsFashion] = useState(false);
   // const [mainImageList,setMainImageList]=useState([]);
   const password = "shopout@123";
 
@@ -90,16 +91,18 @@ function Business() {
     e.preventDefault();
     console.log(image);
     console.log(imageList);
+    console.log(isFashion)
 
-    // var phoneNo1 = e.target.value;
-    console.log(phoneNo.length);
-
-    if (phoneNo.length<10){
+    if (phoneNo.length < 10){
       alert("Please enter valid Phone Number.")
       return;
     }
 
-    console.log("My name is Omkar.");
+    let tempDesc = description;
+    if(tempDesc.length > 100){
+      alert("Length should be less than 100 characters!")
+      return;
+    }
 
     try {
       const res = await fetch(
@@ -124,6 +127,7 @@ function Business() {
               images: imageList,
               title_image: image,
               hasCallNow: hasCallNow,
+              isFashion
             },
           }),
         }
@@ -165,6 +169,17 @@ function Business() {
             placeholder="Legal/Official Name"
             onChange={(e) => {
               setName(e.target.value);
+            }}
+            required
+          />
+          <label htmlFor="fashion">Is Fashion</label>
+          <input
+            type="checkbox"
+            name="fashion"
+            id="fashion"
+            checked={isFashion}
+            onChange={(e) => {
+              setIsFashion(!isFashion)
             }}
             required
           />

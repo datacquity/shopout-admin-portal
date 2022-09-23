@@ -29,6 +29,7 @@ function Store() {
 	const [friday, setFriday] = useState(false);
 	const [saturday, setSaturday] = useState(false);
 	const [sunday, setSunday] = useState(false);
+	const [isFashion, setIsFashion] = useState(false);
 	const [days, setDays] = useState([]);
 
 	const [start, setStart] = useState(new Date());
@@ -57,11 +58,8 @@ function Store() {
 					.then((res) => res.json())
 					.then((data) => {
 						console.log(data);
-						// console.log(data.categories.length);
 						const businessLength = data.business.length;
-						// console.log(businessLength);
 						const businesses = data.business;
-						// console.log(typeof businesses);
 						var businessList1 =
 							businessLength > 0 &&
 							businesses.map((business, index) => {
@@ -72,10 +70,7 @@ function Store() {
 									</option>
 								);
 							});
-						// console.log(businessList1);
 						setBusinessList(businessList1);
-						// document.getElementById("business").innerHTML = options;
-						// console.log(options,"OMk");
 					});
 			} catch (e) {
 				console.log(e);
@@ -105,37 +100,11 @@ function Store() {
 
 	async function submitHandler(e) {
 		e.preventDefault();
-		console.log(value);
-		console.log(storeName);
-		console.log(businessName);
-		console.log(city);
-		console.log(email);
-		console.log(description);
-		console.log(businessId);
-		console.log(tags);
-		console.log(phoneNo);
-		console.log(virtuallyAvailable);
-		console.log(physicallyAvailable);
-		console.log(capacity);
-		console.log(address);
-		console.log(longitude);
-		console.log(latitude);
-		console.log(monday);
-		console.log(tuesday);
-		console.log(wednesday);
-		console.log(thursday);
-		console.log(friday);
-		console.log(saturday);
-		console.log(sunday);
-		console.log(days);
-		console.log(start);
-		console.log(end);
-		console.log(newDay);
+		
+		console.log(isFashion)
 
 		const startMain = start.toString().substring(16, 21);
 		const endMain = end.toString().substring(16, 21);
-		console.log(startMain);
-		console.log(endMain);
 
 		if (
 			monday &&
@@ -179,8 +148,6 @@ function Store() {
 
 		const end3 = parseInt(end1);
 
-		console.log(days);
-		console.log(days.length);
 
 		if (end2 == start2) {
 			if (end3 == start3) {
@@ -199,7 +166,6 @@ function Store() {
 		}
 
 		try {
-			console.log("206");
 			const res = await fetch("/store/create/store", {
 				headers: {
 					"Content-Type": "application/json",
@@ -224,6 +190,7 @@ function Store() {
 						end: endMain,
 						password: password,
 						startTime: newDay,
+						isFashion
 					},
 				}),
 			})
@@ -267,6 +234,17 @@ function Store() {
 						placeholder="Title Name"
 						onChange={(e) => {
 							setStoreName(e.target.value);
+						}}
+						required 
+					/>
+					<label htmlFor="fashion">Is Fashion</label>
+					<input
+						type="checkbox"
+						name="fashion"
+						id="fashion"
+						checked={isFashion}
+						onChange={(e) => {
+						setIsFashion(!isFashion)
 						}}
 						required
 					/>

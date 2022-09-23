@@ -19,6 +19,7 @@ function Events() {
   const [storeList, setStoreList] = useState();
   const [eventDuration, setEventDuration] = useState();
   const [image, setImage] = useState("");
+  const [isFashion, setIsFashion] = useState(false)
 
   const [value1, onChange1] = useState(new Date());
   const [value, onChange] = useState(new Date());
@@ -44,12 +45,9 @@ function Events() {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             const business = data.business;
             const stores = data.business.stores;
-            console.log(stores);
             const storesLength = data.business.stores.length;
-            console.log(storesLength);
             var storesList = business && storesLength > 0 && stores.map((store, index) => {
               return (
                 <option key={index} value={store._id}>
@@ -59,7 +57,6 @@ function Events() {
                 </option>
               )
             })
-            // setStoreList(storeList1);
             setStoreList(storesList);
           })
       }
@@ -156,7 +153,7 @@ function Events() {
 
   async function submitHandler(e) {
     e.preventDefault();
-
+    console.log(isFashion)
     // var myDate = date;
     // var myTime = time;
     // myDate = myDate.split("-");
@@ -170,19 +167,6 @@ function Events() {
     // setMainDate(newDate);
     // setMainTime(newTime);
 
-    console.log(eventName);
-    console.log(date);
-    console.log(time);
-    console.log(description);
-    console.log(capacity);
-    console.log(tags);
-    console.log(businessId);
-    console.log(storeId);
-    console.log(eventDuration);
-    console.log(image);
-    console.log(value);
-
-    
     const event = await fetch(
       "/user/app/home/demoBooking/upload",
       {
@@ -196,7 +180,6 @@ function Events() {
         method: "Post",
         body: JSON.stringify({
           demoData: {
-            // form.eventName.value
             store: storeId,
             business: businessId,
             demoName: eventName,
@@ -207,6 +190,7 @@ function Events() {
             capacity: capacity,
             image: image,
             tags: tags,
+            isFashion
           },
         }),
       }
@@ -255,6 +239,17 @@ function Events() {
               </option>
               {businessList}
             </select>
+            <label htmlFor="fashion">Is Fashion</label>
+            <input
+              type="checkbox"
+              name="fashion"
+              id="fashion"
+              checked={isFashion}
+              onChange={(e) => {
+                setIsFashion(!isFashion)
+              }}
+              required
+            />
             {/* <Select name="businesses" id="" options={businessList}  onChange={(e)=>{
               console.log(e.target.value);
               setBusinessId(e.target.value);
