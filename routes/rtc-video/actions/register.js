@@ -283,14 +283,16 @@ router.post('/video', async (req, res) => {
     // console.log(videoData);
     const id = videoData.businessId;
 
-    // console.log(id);
-
     const business = await Business.findOne(
       { _id: id },
-      (err, foundBusiness) => {}
+      (err, foundBusiness) => {
+        if(err){
+          return res.status(404).json({message: "Business not found!"})
+        }
+      }
     ).select('category tags display_name');
 
-    // console.log(business);
+    console.log(business);
 
     const options = {
       host: 'www.googleapis.com',
@@ -336,8 +338,9 @@ router.post('/video', async (req, res) => {
           business: videoData.businessId,
           description: description,
           title: title,
-          thumbnail: videoData.thumbnail,
+          thumbnail,
           date: publishedAt,
+          isFashion: videoData.isFashion
         });
         newVideo.save((err, savedVideo) => {
                 if (err) {

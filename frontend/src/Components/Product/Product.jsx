@@ -15,6 +15,7 @@ const Product = () => {
 	const [deliveryCharge, setDeliveryCharge] = useState([]);
 	const [sgst, setSgst] = useState();
 	const [cgst, setCgst] = useState();
+	const [isFashion, setIsFashion] = useState(false)
 
 	const discount = [];
 
@@ -106,26 +107,6 @@ const Product = () => {
 	async function submitHandler(e) {
 		e.preventDefault();
 
-		console.log("Values from user-order");
-		console.log(beforePrice);
-		console.log(discount1);
-		console.log(total);
-		console.log(tax);
-		console.log(deliveryCharge);
-		console.log(payTotal);
-
-		console.log("Value from created product");
-		console.log(eventName);
-		// console.log(productName);
-		// console.log(description);
-		console.log(quantity);
-		console.log(variants);
-		console.log(beforePrice);
-		console.log(discount);
-		console.log(deliveryCharge);
-		console.log(sgst);
-		console.log(cgst);
-
 		const product = await fetch("/user/product/create", {
 			headers: {
 				"Content-Type": "application/json",
@@ -134,7 +115,6 @@ const Product = () => {
 			method: "Post",
 			body: JSON.stringify({
 				productData: {
-					// form.eventName.value
 					event: eventName,
 					// name: productName,
 					// desc: description,
@@ -146,6 +126,7 @@ const Product = () => {
 					deliveryCharge: deliveryCharge,
 					sgst: sgst,
 					cgst: cgst,
+					isFashion
 				},
 			}),
 		})
@@ -190,6 +171,17 @@ const Product = () => {
 						<option value="">Choose One</option>
 						{eventList}
 					</select>
+					<label htmlFor="fashion">Is Beauty</label>
+					<input
+						type="checkbox"
+						name="fashion"
+						id="fashion"
+						checked={isFashion}
+						onChange={(e) => {
+						setIsFashion(!isFashion)
+						}}
+						required
+					/>
 
 					{/* <label htmlFor="productName">Product Name</label>
           <input

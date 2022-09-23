@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
 	try {
-		const { DB_TEMP } = process.env;
+		const { DB_TEST_DATA } = process.env;
 		await mongoose.connect(
-			DB_TEMP,
+			DB_TEST_DATA,
 			{
 				useFindAndModify: false,
 				useNewUrlParser: true,

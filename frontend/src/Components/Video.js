@@ -16,6 +16,7 @@ function Video() {
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [source, setSource] = useState("");
+  const [isFashion,setIsFashion] = useState(false)
   const [date, setDate] = useState(new Date());
 
   const [value1, onChange1] = useState(new Date());
@@ -110,7 +111,8 @@ function Video() {
             description: description,
             thumbnail: thumbnail,
             title: videoTitle,
-            date: date
+            date: date,
+            isFashion
           }
         }),
       }
@@ -153,6 +155,17 @@ function Video() {
               <option value="">Choose One</option>
               {businessList}
             </select>
+            <label htmlFor="fashion">Is Beauty</label>
+            <input
+              type="checkbox"
+              name="fashion"
+              id="fashion"
+              checked={isFashion}
+              onChange={(e) => {
+                setIsFashion(!isFashion)
+              }}
+              required
+            />
             {/* <label htmlFor="categories">Categories</label>
             <select
               name="categories"

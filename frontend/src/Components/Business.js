@@ -172,7 +172,7 @@ function Business() {
             }}
             required
           />
-          <label htmlFor="fashion">Is Fashion</label>
+          <label htmlFor="fashion">Is Beauty</label>
           <input
             type="checkbox"
             name="fashion"

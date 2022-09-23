@@ -43,6 +43,11 @@ const videoSchema = new Schema({
 		type: Number,
 		default: 0,
 	},
+	isFashion: {
+		type: Boolean,
+		default: false,
+		required: true
+	},
 	created: {
 		type: Date,
 		default: () => Date.now(),
