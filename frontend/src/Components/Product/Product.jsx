@@ -58,12 +58,8 @@ const Product = () => {
 				const event = await fetch("/user/demoBooking/get/all-demo-booking")
 					.then((res) => res.json())
 					.then((data) => {
-						console.log(data);
-						// console.log(data.demobooking.length);
 						const eventLength = data.demoBookings.length;
-						// console.log(eventLength);
 						const events = data.demoBookings;
-						// console.log(typeof events);
 						var eventList1 =
 							eventLength > 0 &&
 							events.map((event, index) => {
@@ -74,7 +70,6 @@ const Product = () => {
 									</option>
 								);
 							});
-						// console.log(eventList1);
 						setEventList(eventList1);
 					});
 			} catch (e) {
@@ -93,13 +88,10 @@ const Product = () => {
 		});
 
 	async function imageToBase64(e) {
-		// console.log(e.target.files[0]);
 		if (e.target.files[0]) {
 			const resTitle = (await toDataURL(e.target.files[0]))
 				.replace("data:", "")
 				.replace(/^.+,/, "");
-			console.log(resTitle);
-			console.log(e.target.files[0]);
 			setImage(resTitle);
 		}
 	}
@@ -116,24 +108,22 @@ const Product = () => {
 			body: JSON.stringify({
 				productData: {
 					event: eventName,
+					price: beforePrice,
 					// name: productName,
 					// desc: description,
-					image: image,
-					quantity: quantity,
-					variants: variants,
-					price: beforePrice,
-					discount: discount,
-					deliveryCharge: deliveryCharge,
-					sgst: sgst,
-					cgst: cgst,
+					image,
+					quantity,
+					variants,
+					discount,
+					deliveryCharge,
+					sgst,
+					cgst,
 					isFashion
 				},
 			}),
 		})
 			.then((res) => {
-				res.json();
-				console.log(res);
-
+				
 				if (res.status === 413) {
 					alert("Display image size should be less than 70kbs.");
 				} else if (res.status === 400) {
@@ -143,11 +133,10 @@ const Product = () => {
 				} else if (res.status === 500) {
 					alert("Please refresh the page an select the event carefully.");
 				}
+				return res.json();
 			})
 			.then((data) => {
-				console.log(data);
 				if (data) {
-					console.log(data.data.name);
 					alert(`Saved a new product`);
 				}
 			});
@@ -158,15 +147,15 @@ const Product = () => {
 			<h1>Create a Product</h1>
 
 			<div className="content">
-				<form action="submit">
+				<form action="submit" onSubmit={submitHandler}>
 					<label htmlFor="event">Event Name-Date</label>
 					<select
 						name="event"
 						id="event"
 						onChange={(e) => {
-							console.log(e.target.value);
 							setEventName(e.target.value);
 						}}
+						required
 					>
 						<option value="">Choose One</option>
 						{eventList}
@@ -180,30 +169,8 @@ const Product = () => {
 						onChange={(e) => {
 						setIsFashion(!isFashion)
 						}}
-						required
 					/>
 
-					{/* <label htmlFor="productName">Product Name</label>
-          <input
-            type="text"
-            name="productName"
-            id="productName"
-            placeholder="Product Name"
-            onChange={(e) => { setProductName(e.target.value); }}
-            required
-          />
-
-          <label htmlFor="description">Description</label>
-          <textarea
-            cols="30"
-            rows="30"
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Describe the Product."
-            onChange={(e) => { setDescription(e.target.value); }}
-            required
-          ></textarea> */}
 
 					<label htmlFor="Image">Image</label>
 					<input
@@ -215,7 +182,7 @@ const Product = () => {
 							setImage([]);
 							imageToBase64(e);
 						}}
-					/>
+						/>
 
 					<label htmlFor="quantity">Quantity</label>
 					<input
@@ -280,7 +247,7 @@ const Product = () => {
 							setDeliveryCharge(deliverChargeArray);
 						}}
 						// onChange={(e) => { setDeliveryCharge(e.target.value); }}
-					/>
+						/>
 
 					<label htmlFor="sgst">SGST</label>
 					<input
@@ -316,11 +283,11 @@ const Product = () => {
 						contentEditable="false"
 						readOnly
 						// onChange={(e) => {
-						//   var discountArray = e.target.value.split(",");
-						//   setDiscount(discountArray);
-						// }}
-						required
-					/>
+							//   var discountArray = e.target.value.split(",");
+							//   setDiscount(discountArray);
+							// }}
+							required
+							/>
 
 					<label htmlFor="actualprice">Actual Price</label>
 					<input
@@ -332,7 +299,7 @@ const Product = () => {
 						contentEditable="false"
 						readOnly
 						required
-					/>
+						/>
 
 					<label htmlFor="discountprice">Discount Price</label>
 					<input
@@ -344,7 +311,7 @@ const Product = () => {
 						contentEditable="false"
 						readOnly
 						required
-					/>
+						/>
 
 					<label htmlFor="totalpricewithouttax">Total Price without Tax</label>
 					<input
@@ -356,7 +323,7 @@ const Product = () => {
 						contentEditable="false"
 						readOnly
 						required
-					/>
+						/>
 
 					<label htmlFor="totaltax">Total Tax</label>
 					<input
@@ -368,7 +335,7 @@ const Product = () => {
 						contentEditable="false"
 						readOnly
 						required
-					/>
+						/>
 
 					<label htmlFor="deliverycharge">Delivery Charge</label>
 					<input
@@ -392,9 +359,9 @@ const Product = () => {
 						contentEditable="false"
 						readOnly
 						required
-					/>
+						/>
 
-					<button className="blueButton" onClick={submitHandler}>
+					<button className="blueButton">
 						Next
 					</button>
 				</form>
@@ -404,3 +371,25 @@ const Product = () => {
 };
 
 export default Product;
+
+{/* <label htmlFor="productName">Product Name</label>
+<input
+type="text"
+name="productName"
+id="productName"
+placeholder="Product Name"
+onChange={(e) => { setProductName(e.target.value); }}
+required
+/>
+
+<label htmlFor="description">Description</label>
+<textarea
+cols="30"
+rows="30"
+type="text"
+name="description"
+id="description"
+placeholder="Describe the Product."
+onChange={(e) => { setDescription(e.target.value); }}
+required
+></textarea> */}

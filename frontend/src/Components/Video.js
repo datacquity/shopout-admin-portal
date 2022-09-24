@@ -117,19 +117,9 @@ function Video() {
         }),
       }
     )
-      .then((res) => res.json()
-        // console.log(res);
-        // if (res.status === 200) {
-        //   alert("New Event is Created.");
-        // } else if (res.status === 500) {
-        //   alert(
-        //     "Please refresh the page an select the business carefully."
-        //   );
-        // }
-      )
+      .then((res) => res.json())
       .then((data) => {
         if (data) {
-          console.log(data);
           alert(`New video is uploaded named ${data.video.title} for business named ${data.business.display_name}.`);
         }
       });
@@ -139,13 +129,14 @@ function Video() {
     <div className={classes.Video}>
       <h1>Upload a Video</h1>
       <div className={classes.content}>
-        <form action="submit">
+        <form action="submit" onSubmit={submitHandler}>
           <div className={classes.selects}>
             <label htmlFor="businessId">Business ID (Object ID)</label>
             <select
               // defaultValue={businessList[0]}
               name="businesses"
               id=""
+              required
               onChange={(e) => {
                 setBusinessId("");
                 console.log(e.target.value);
@@ -164,96 +155,8 @@ function Video() {
               onChange={(e) => {
                 setIsFashion(!isFashion)
               }}
-              required
             />
-            {/* <label htmlFor="categories">Categories</label>
-            <select
-              name="categories"
-              id="categories"
-              onChange={(e) => {
-                console.log(e.target.value);
-                setCategory(e.target.value);
-              }}
-            >
-              <option value="" >
-                Choose One
-              </option>
-              {categoryList}
-            </select> */}
           </div>
-          {/* <label htmlFor="videoTitle">Video Title</label>
-          <input
-            type="text"
-            name="videoTitle"
-            id="videoTitle"
-            placeholder="Event Name"
-            onChange={(e) => {
-              setVideoTitle(e.target.value);
-            }}
-            required
-          /> */}
-          {/* <label htmlFor="description">Description</label>
-          <textarea
-            cols="30"
-            rows="30"
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Description of a video."
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            required
-          ></textarea> */}
-          {/* <label htmlFor="likes">Likes</label>
-          <input
-            type="number"
-            name="number"
-            id="likes"
-            placeholder="No. of likes to the youtube videos."
-            onChange={(e) => {
-              setLikes(e.target.value);
-            }}
-          />
-          <label htmlFor="disLikes">Dislikes</label>
-          <input
-            type="number"
-            name="number"
-            id="disLikes"
-            placeholder="No. of disLikes to the youtube videos."
-            onChange={(e) => {
-              setDisLikes(e.target.value);
-            }}
-          /> */}
-          {/* <label htmlFor="tags">Tags</label>
-          <input
-            type="text"
-            name="tags"
-            id="tags"
-            placeholder="For e.g. clothes , fashion , fashion style , men fashion , women fashion"
-            onChange={(e) => {
-              var tagsArray = e.target.value.split(",");
-              //   const resArr = tags.map(element => {
-              //     return element.trim();
-              // });
-              const resArr = tagsArray.map((element) => {
-                return element.trim();
-              });
-              console.log(resArr);
-              setTags(tagsArray);
-            }}
-            required
-          />
-          <label htmlFor="thumbnail">Thumbnail Link</label>
-          <input
-            type="text"
-            name="thumbnail"
-            id="thumbnail"
-            placeholder="Link of thumbnail image."
-            onChange={(e)=>{
-                setThumbnail(e.target.value);
-            }}
-          /> */}
           <label htmlFor="source">Source of a Video</label>
           <input
             type="text"
@@ -263,13 +166,9 @@ function Video() {
             onChange={(e) => {
               setSource(e.target.value);
             }}
-          />
-          {/* <label htmlFor="date">Date (Video uploaded On)</label>
-          <input type="date" name="date" id="date" onChange={(e)=>{
-                console.log(e.target.value);
-                setDate(e.target.value);
-            }}/> */}
-          <button className={classes.blueButton} onClick={submitHandler}>
+            required
+            />
+          <button className={classes.blueButton}>
             Next
           </button>
         </form>
@@ -279,3 +178,92 @@ function Video() {
 }
 
 export default Video;
+
+{/* <label htmlFor="categories">Categories</label>
+<select
+  name="categories"
+  id="categories"
+  onChange={(e) => {
+    console.log(e.target.value);
+    setCategory(e.target.value);
+  }}
+>
+  <option value="" >
+    Choose One
+  </option>
+  {categoryList}
+</select> */}
+
+{/* <label htmlFor="videoTitle">Video Title</label>
+<input
+type="text"
+name="videoTitle"
+id="videoTitle"
+placeholder="Event Name"
+onChange={(e) => {
+    setVideoTitle(e.target.value);
+  }}
+  required
+/> */}
+{/* <label htmlFor="description">Description</label>
+<textarea
+  cols="30"
+  rows="30"
+  type="text"
+  name="description"
+  id="description"
+  placeholder="Description of a video."
+  onChange={(e) => {
+    setDescription(e.target.value);
+  }}
+  required
+></textarea> */}
+{/* <label htmlFor="likes">Likes</label>
+<input
+  type="number"
+  name="number"
+  id="likes"
+  placeholder="No. of likes to the youtube videos."
+  onChange={(e) => {
+    setLikes(e.target.value);
+  }}
+/>
+<label htmlFor="disLikes">Dislikes</label>
+<input
+  type="number"
+  name="number"
+  id="disLikes"
+  placeholder="No. of disLikes to the youtube videos."
+  onChange={(e) => {
+    setDisLikes(e.target.value);
+  }}
+/> */}
+{/* <label htmlFor="tags">Tags</label>
+<input
+  type="text"
+  name="tags"
+  id="tags"
+  placeholder="For e.g. clothes , fashion , fashion style , men fashion , women fashion"
+  onChange={(e) => {
+    var tagsArray = e.target.value.split(",");
+    //   const resArr = tags.map(element => {
+    //     return element.trim();
+    // });
+    const resArr = tagsArray.map((element) => {
+      return element.trim();
+    });
+    console.log(resArr);
+    setTags(tagsArray);
+  }}
+  required
+/>
+<label htmlFor="thumbnail">Thumbnail Link</label>
+<input
+  type="text"
+  name="thumbnail"
+  id="thumbnail"
+  placeholder="Link of thumbnail image."
+  onChange={(e)=>{
+      setThumbnail(e.target.value);
+  }}
+/> */}

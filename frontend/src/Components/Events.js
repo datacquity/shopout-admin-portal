@@ -73,12 +73,8 @@ function Events() {
         )
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
-            // console.log(data.categories.length);
             const businessLength = data.business.length;
-            // console.log(businessLength);
             const businesses = data.business;
-            // console.log(businesses);
             var businessList1 =
               businessLength > 0 &&
               businesses.map((business, index) => {
@@ -89,18 +85,13 @@ function Events() {
                   </option>
                 );
               });
-            // console.log(businessList1);
             setBusinessList(businessList1);
-            // document.getElementById("business").innerHTML = options;
-            // console.log(options,"OMk");
           });
 
-        const store = await fetch("/store/fetch/all")
+          fetch("/store/fetch/all")
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             const storeLength = data.store.length;
-            // console.log(storeLength);
             const stores = data.store;
             var storeList1 =
               storeLength > 0 &&
@@ -140,13 +131,10 @@ function Events() {
     });
 
   async function imageToBase64(e) {
-    // console.log(e.target.files[0]);
     if (e.target.files[0]) {
       const resTitle = (await toDataURL(e.target.files[0]))
         .replace("data:", "")
         .replace(/^.+,/, "");
-      console.log(resTitle);
-      console.log(e.target.files[0]);
       setImage(resTitle);
     }
   }
@@ -183,21 +171,19 @@ function Events() {
             store: storeId,
             business: businessId,
             demoName: eventName,
-            description: description,
             demoDate: value,
             duration: eventDuration,
             startTime: value,
-            capacity: capacity,
-            image: image,
-            tags: tags,
+            description,
+            capacity,
+            image,
+            tags,
             isFashion
           },
         }),
       }
     )
       .then((res) => {
-        res.json()
-        console.log(res);
         if (res.status === 413) {
           alert("Display image size should be less than 70kbs.")
         }
@@ -207,11 +193,10 @@ function Events() {
         else if (res.status === 500) {
           alert("Please refresh the page an select the business & store carefully.")
         }
+        return res.json()
       }
       ).then((data) => {
-        console.log(data);
         if (data) {
-          console.log(data.data.demoName);
           alert(`Saved a new event named ${data.data.demoName}.`);
         }
       });
@@ -221,11 +206,11 @@ function Events() {
     <div className={classes.Events}>
       <h1>Create an Event</h1>
       <div className={classes.content}>
-        <form action="submit">
+        <form action="submit" onSubmit={submitHandler}>
           <div className={classes.selects}>
             <label htmlFor="businessId">Business ID (Object ID)</label>
             <select
-              // defaultValue={businessList[0]}
+              required
               name="businesses"
               id=""
               onChange={(e) => {
@@ -248,12 +233,7 @@ function Events() {
               onChange={(e) => {
                 setIsFashion(!isFashion)
               }}
-              required
             />
-            {/* <Select name="businesses" id="" options={businessList}  onChange={(e)=>{
-              console.log(e.target.value);
-              setBusinessId(e.target.value);
-            }}/> */}
             <label htmlFor="storeId">Store ID (Object ID)</label>
             <select
               // defaultValue={storeList[0]}
@@ -263,7 +243,8 @@ function Events() {
                 console.log(e.target.value);
                 setStoreId(e.target.value);
               }}
-            >
+              required
+              >
               <option value="null" >
                 Choose One
               </option>
@@ -280,7 +261,7 @@ function Events() {
               setEventName(e.target.value);
             }}
             required
-          />
+            />
           <label htmlFor="date">Date & Time</label>
           {/* <DateTimePicker 
             onChange={onChange}
@@ -294,9 +275,9 @@ function Events() {
             selected={value}
             onChange={(date) => onChange(date)}
             showTimeSelect
-
+            required
             dateFormat="MMMM d, yyyy h:mm aa"
-          />
+            />
           <label htmlFor="description">Description</label>
           <textarea
             cols="30"
@@ -309,7 +290,7 @@ function Events() {
               setDescription(e.target.value);
             }}
             required
-          ></textarea>
+            ></textarea>
           <label htmlFor="capacity">Capacity</label>
           <input
             type="number"
@@ -320,7 +301,7 @@ function Events() {
               setCapacity(e.target.value);
             }}
             required
-          />
+            />
           <label htmlFor="tags">Tags</label>
           <input
             type="text"
@@ -329,13 +310,10 @@ function Events() {
             placeholder="For e.g. clothes , fashion , fashion style , men fashion , women fashion"
             onChange={(e) => {
               var tagsArray = e.target.value.split(",");
-              //   const resArr = tags.map(element => {
-              //     return element.trim();
-              // });
               setTags(tagsArray);
             }}
             required
-          />
+            />
           <label htmlFor="Image">Image</label>
           <input
             type="file"
@@ -357,9 +335,9 @@ function Events() {
               setEventDuration(e.target.value);
             }}
             required
-          />
+            />
 
-          <button className={classes.blueButton} onClick={submitHandler}>
+          <button className={classes.blueButton}>
             Next
           </button>
         </form>
@@ -369,3 +347,8 @@ function Events() {
 }
 
 export default Events;
+
+{/* <Select name="businesses" id="" options={businessList}  onChange={(e)=>{
+  console.log(e.target.value);
+  setBusinessId(e.target.value);
+}}/> */}

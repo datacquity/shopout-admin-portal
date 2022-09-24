@@ -28,8 +28,6 @@ function Business() {
         )
           .then((res) => res.json())
           .then((data) => {
-            // console.log(data);
-            // console.log(data.categories.length);
             const categories = data.categories;
             const categoryLength = data.categories.length;
             var categoryList1 =
@@ -59,19 +57,15 @@ function Business() {
     });
 
   async function imageToBase64(e) {
-    // console.log(e.target.files[0]);
     if (e.target.files[0]) {
       const resTitle = (await toDataURL(e.target.files[0]))
         .replace("data:", "")
         .replace(/^.+,/, "");
-      console.log(resTitle);
-      console.log(e.target.files[0]);
       setImage(resTitle);
     }
   }
 
   async function imagesToBase64(e) {
-    console.log(e.target.files.length);
     if (e.target.files) {
       for (let i = 0; i < e.target.files.length; i++) {
         const res = (await toDataURL(e.target.files[i]))
@@ -79,19 +73,12 @@ function Business() {
           .replace(/^.+,/, "");
         // imageList.push(res);
         setImageList((previous) => [...previous, res]);
-        console.log(res);
-        console.log(imageList);
       }
     }
   }
 
-  // console.log(imageList);
-
   async function submitHandler(e) {
     e.preventDefault();
-    console.log(image);
-    console.log(imageList);
-    console.log(isFashion)
 
     if (phoneNo.length < 10){
       alert("Please enter valid Phone Number.")
@@ -116,36 +103,33 @@ function Business() {
           body: JSON.stringify({
             businessData: {
               tags: businessTags,
-              brands: brands,
-              category: category,
-              name: name,
-              display_name: display_name,
-              password: password,
-              phone: phoneNo,
-              email: email,
-              description: description,
               images: imageList,
               title_image: image,
               hasCallNow: hasCallNow,
+              brands,
+              category,
+              name,
+              display_name,
+              password,
+              phone: phoneNo,
+              email,
+              description,
               isFashion
             },
           }),
         }
       )
         .then((res) => {
-          res.json();
-          console.log(res);
           if (res.status === 413){
             alert("Display image size & consolidated size of Title images should be less than 70kbs.")
           }
           else if (res.status === 200){
             alert("New Business is Created.")
           }
+          return res.json();
         })
         .then((data) => {
-          console.log(data);
           if (data) {
-            console.log(data.business.name);
             alert(
               `Saved a new business named ${data.business.name} with a display name of ${data.business.display_name}.`
             );
@@ -160,7 +144,7 @@ function Business() {
     <div className={classes.Business}>
       <h1>Create a Business</h1>
       <div className={classes.content}>
-        <form action="submit">
+        <form action="submit" onSubmit={submitHandler}>
           <label htmlFor="businessName">Business Name</label>
           <input
             type="text"
@@ -181,7 +165,6 @@ function Business() {
             onChange={(e) => {
               setIsFashion(!isFashion)
             }}
-            required
           />
           <label htmlFor="titleName">Title Name</label>
           <input
@@ -247,7 +230,6 @@ function Business() {
             name="categories"
             id="categories"
             onChange={(e) => {
-              console.log(e.target.value);
               setCategory(e.target.value);
             }}
           >
@@ -262,7 +244,6 @@ function Business() {
             name="displayImage"
             id="displayImage"
             onChange={(e) => {
-              console.log(e.target.files[0]);
               setImage([]);
               imageToBase64(e);
             }}
@@ -274,8 +255,6 @@ function Business() {
             multiple
             id="images"
             onChange={(e) => {
-              console.log(e.target.files[0]);
-              console.log(e.target.files[1]);
               setImageList([]);
               imagesToBase64(e);
             }}
@@ -320,7 +299,6 @@ function Business() {
                     type={type}
                     id={`inline-${type}-1`}
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setHasCallNow(e.target.value);
                     }}
                   />
@@ -333,7 +311,6 @@ function Business() {
                     type={type}
                     id={`inline-${type}-2`}
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setHasCallNow(e.target.value);
                     }}
                   />
@@ -341,7 +318,7 @@ function Business() {
               ))}
             </Form>
           </div>
-          <button onClick={submitHandler}>Next</button>
+          <button>Next</button>
         </form>
       </div>
     </div>

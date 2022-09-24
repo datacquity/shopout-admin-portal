@@ -211,11 +211,12 @@ function Store() {
 		<div className="Store">
 			<h1>Create a Store</h1>
 			<div className="content">
-				<form action="submit">
+				<form action="submit" onSubmit={submitHandler}>
 					<label htmlFor="business">Business Name</label>
 					<select
 						name="business"
 						id="business"
+						required
 						onChange={(e) => {
 							console.log(e.target.value);
 							setBusinessName(e.target.value);
@@ -246,7 +247,6 @@ function Store() {
 						onChange={(e) => {
 						setIsFashion(!isFashion)
 						}}
-						required
 					/>
 					<label htmlFor="email">Email</label>
 					<input
@@ -296,37 +296,6 @@ function Store() {
 						}}
 						required
 					></textarea>
-					{/* <label htmlFor="businessId">Business ID (Object ID) (Optional)</label>
-          <input
-            type="text"
-            name="businessId"
-            id="businessId"
-            placeholder="For e.g. "
-            onChange={(e) => {
-                setBusinessId(e.target.value);
-            }}
-          />
-          <label htmlFor="tags">Tags (Comma Seperated) (Optional)</label>
-          <input
-            type="text"
-            name="tags"
-            id="tags"
-            placeholder="For e.g. clothes , fashion , fashion style , men fashion , women fashion"
-            onChange={(e) => {
-                setTags(e.target.value);
-            }}
-          /> */}
-					{/* <label htmlFor="brands">Brands (Comma Seperated)</label>
-          <input
-            type="text"
-            name="brands"
-            id="brands"
-            placeholder="For e.g. YWC , Nike , H&M , Adidas , Zara"
-            required
-            onChange={(e) => {
-                // setBrands(e.target.value);
-            }}
-          /> */}
 					<div className="hasCallNow">
 						<label htmlFor="physical">
 							Is your Store Physically Available?
@@ -418,7 +387,7 @@ function Store() {
 						onChange={(e) => {
 							setAddress(e.target.value);
 						}}
-					/>
+						/>
 					<label htmlFor="locationCoordinates">Location Co-Ordinates</label>
 					<label htmlFor="longitude">Longitude</label>
 					<input
@@ -445,9 +414,9 @@ function Store() {
 						name="city"
 						id="city"
 						onChange={(e) => {
-							console.log(e.target.value);
 							setCity(e.target.value);
 						}}
+						required
 					>
 						{citiesList}
 					</select>
@@ -478,7 +447,7 @@ function Store() {
 											setMonday((prev) => !prev);
 											setDays([]);
 										}}
-									/>
+										/>
 									<Form.Check
 										className="form"
 										inline
@@ -600,8 +569,8 @@ function Store() {
 						onChange={(date) => {
 							setEnd(date.target.value);
 						}}
-					/>
-					<button className="blueButton" onClick={submitHandler}>
+						/>
+					<button className="blueButton">
 						Next
 					</button>
 				</form>
@@ -611,3 +580,35 @@ function Store() {
 }
 
 export default Store;
+
+{/* <label htmlFor="businessId">Business ID (Object ID) (Optional)</label>
+<input
+type="text"
+name="businessId"
+id="businessId"
+placeholder="For e.g. "
+onChange={(e) => {
+setBusinessId(e.target.value);
+}}
+/>
+<label htmlFor="tags">Tags (Comma Seperated) (Optional)</label>
+<input
+type="text"
+name="tags"
+id="tags"
+placeholder="For e.g. clothes , fashion , fashion style , men fashion , women fashion"
+onChange={(e) => {
+setTags(e.target.value);
+}}
+/> */}
+{/* <label htmlFor="brands">Brands (Comma Seperated)</label>
+<input
+type="text"
+name="brands"
+id="brands"
+placeholder="For e.g. YWC , Nike , H&M , Adidas , Zara"
+required
+onChange={(e) => {
+// setBrands(e.target.value);
+}}
+/> */}
