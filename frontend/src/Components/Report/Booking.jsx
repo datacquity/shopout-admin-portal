@@ -11,18 +11,15 @@ const Booking = () => {
 	// console.log(endDate);
 
 	useEffect(() => {
+		const fetchData = async () => {
+			const res = await fetch("/admin/bookings/get")
+			const data = await res.json();
+			console.log(data)
+			setData(data.bookings)
+		};
 		fetchData();
 	}, []);
 
-	const fetchData = async () => {
-		await fetch("/admin/bookings/get")
-			.then((res) => res.json())
-			.then((response) => {
-				console.log(response);
-				console.log(response.demobookings);
-				setData(response.bookings);
-			});
-	};
 
 	function convert_date(s) {
 		var newdate = new Date(Date.parse(s));
@@ -37,7 +34,6 @@ const Booking = () => {
 					var date = new Date(a.start);
 					return date >= startDate && date <= endDate;
 			  });
-	console.log(filtered);
 
 	return (
 		<>
@@ -75,7 +71,7 @@ const Booking = () => {
 					{filtered.map((item, i) => {
 						return (
 							<tr key={i}>
-								<td>{item.store.business.name}</td>
+								<td>{item.store && item.store.business.name}</td>
 								<td>{convert_date(item.start)}</td>
 								<td>{item.visitors}</td>
 								<td>{item.status}</td>

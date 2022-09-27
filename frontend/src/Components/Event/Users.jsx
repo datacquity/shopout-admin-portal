@@ -17,23 +17,30 @@ const EventUsers = () => {
 	} = useLocation();
 
 	useEffect(() => {
-		fetch(`/user/demoBooking/get/single-demo/${id}`)
-			.then((res) => res.json())
-			.then((data) => {
+		const fetchData = async () => {
+			try {
+				const res = await fetch(`/user/demoBooking/get/single-demo/${id}`)
+				const data = await res.json();
+				
 				const customers = data.demobooking.customers.map((customer) => {
-					return { ...customer.user };
+					const {firstName, lastName, phone} = customer.user;
+					return { firstName, lastName, phone};
 				});
 				setEventDetails({ customers, eventName: data.demobooking.demoName });
 				setLoading(false);
-			})
-			.catch((e) => {
-				console.log(e);
+				console.log(customers)
+			}catch (error) {
+				console.log(error);
 				setLoading(false);
-			});
+			}
+		}
+
+		fetchData();
 	}, []);
 
 	const convertToCSV = () => {
 		const columnNames = Object.keys(eventDetails.customers[0]);
+		// columnNames.unshift()
 		const opts = { fields: columnNames };
 		console.log(opts);
 		try {
@@ -65,18 +72,29 @@ const EventUsers = () => {
 						<th>Phone Number</th>
 					</tr>
 					{customers.map((customer, i) => {
+						const {phone, firstName, lastName} = customer;
+						
+						let name = "No name found!";
+						if(firstName && lastName){
+							name = `${firstName} ${lastName}`;
+						}else if(firstName && !lastName){
+							name = firstName;
+						}else if(!firstName && lastName){
+							name = lastName;
+						}
+
 						return (
 							<tr key={i}>
 								<td>{i + 1}. </td>
-								<td>{customer.firstName + " " + customer.lastName}</td>
-								<td>{customer.phone} </td>
+								<td>{name}</td>
+								<td>{phone ? phone : "Number not found!"} </td>
 							</tr>
 						);
 					})}
 					<DownloadCSV
 						convertToCSV={convertToCSV}
 						csv={csv}
-						eventDetails={eventDetails}
+						details={eventDetails}
 					/>
 				</tbody>
 			) : (

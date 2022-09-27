@@ -9,7 +9,7 @@ router.get("/all-demo-booking", async (req, res) => {
 			demoName: { $exists: true },
 		}).select(
 			"duration capacity store business demoName description demoDate startTime demoId customers",
-		);
+		).populate({path: 'business', select: ['name', 'display_name']}).exec();
 
 		res.json({ success: "true", demoBookings });
 	} catch (e) {

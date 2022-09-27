@@ -1,13 +1,13 @@
 import React from "react";
 import "./DownloadCSV.css";
 
-const DownloadCSV = ({ convertToCSV, csv, eventDetails }) => {
+const DownloadCSV = ({ convertToCSV, csv, details }) => {
 	return (
 		<a
 			href={`data:text/csv;charset=utf-8,${csv}`}
 			className="csv-download-btn"
 			onClick={convertToCSV}
-			download={`${eventDetails.eventName}.csv`}
+			download={`${details.eventName}.csv`}
 		>
 			Download CSV
 		</a>

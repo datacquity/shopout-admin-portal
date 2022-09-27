@@ -27,7 +27,7 @@ router.post('/all', async (req, res) => {
       const user = await User.findOne({ phone: cred.phone })
         .populate({
           path: 'demoBookings',
-          select: 'demoName description demoDate startTime duration image'
+          select: 'demoName description demoDate startTime duration image store'
         })
         .sort('startTime');
 

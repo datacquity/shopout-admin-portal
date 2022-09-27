@@ -9,16 +9,10 @@ const axios = require("axios");
 
 router.get("/orders/all", async (req, res) => {
 	try {
-		await Order.find()
-			.populate({ path: "user" })
-			.exec((err, orders) => {
-				orders = orders.map((order) => {
-					const { firstName, lastName, phone, ...rest } = order.user;
-					order.user = { firstName, lastName, phone };
-					return order;
-				});
-				res.json({ orders });
-			});
+		const orders = await Order.find()
+			.populate({ path: "user", select: ['firstName', 'lastName', 'phone']})
+			.exec();
+			res.json({orders})
 	} catch (e) {
 		console.log(e);
 	}

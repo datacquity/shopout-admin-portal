@@ -17,11 +17,10 @@ const Event = () => {
 	}, []);
 
 	const fetchData = async () => {
-		await fetch("/user/demoBooking/get/all-demo-booking")
-			.then((res) => res.json())
-			.then((response) => {
-				setData(response.demoBookings);
-			});
+		const res = await fetch("/user/demoBooking/get/all-demo-booking");
+		const data = await res.json();
+		setData(data.demoBookings);
+		console.log(data.demoBookings)
 	};
 
 	function convert_date(s) {
@@ -85,7 +84,7 @@ const Event = () => {
 						? filtered.map((item, i) => {
 								return (
 									<tr key={i} onClick={() => handleEventClick(item._id)}>
-										<td>{item.business}</td>
+										<td>{item.business.name}</td>
 										<td>{item.demoName}</td>
 										<td>{convert_date(item.demoDate)}</td>
 										<td>{item.customers.length}</td>
@@ -95,7 +94,7 @@ const Event = () => {
 						  })
 						: data.map((item, i) => (
 								<tr key={i} onClick={() => handleEventClick(item._id)}>
-									<td>{item.business}</td>
+									<td>{item.business.name}</td>
 									<td>{item.demoName}</td>
 									<td>{convert_date(item.demoDate)}</td>
 									<td>{item.customers.length}</td>

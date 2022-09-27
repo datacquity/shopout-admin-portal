@@ -68,11 +68,12 @@ function Events() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const business = await fetch(
+        fetch(
           "/business/getBusiness/all"
         )
           .then((res) => res.json())
           .then((data) => {
+            console.log(data)
             const businessLength = data.business.length;
             const businesses = data.business;
             var businessList1 =
@@ -86,6 +87,7 @@ function Events() {
                 );
               });
             setBusinessList(businessList1);
+            console.log(businessList1)
           });
 
           fetch("/store/fetch/all")
