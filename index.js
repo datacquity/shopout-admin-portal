@@ -65,7 +65,7 @@ app.use("/admin", adminRoute);
 
 __dirname = path.resolve();
 
-let node_env = "development";
+let node_env = "production";
 
 if (node_env === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/build")));

@@ -56,7 +56,6 @@ router.post("/fetch/product", async (req, res) => {
 				Math.round(
 					(discountedPrice + 2 * taxAmount + prod.deliveryCharge[i]) / 10,
 				) * 10;
-
 			tax.push(taxAmount);
 			total.push(discountedPrice);
 			discount.push(discountAmount);

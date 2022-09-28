@@ -28,7 +28,6 @@ const EventUsers = () => {
 				});
 				setEventDetails({ customers, eventName: data.demobooking.demoName });
 				setLoading(false);
-				console.log(customers)
 			}catch (error) {
 				console.log(error);
 				setLoading(false);
@@ -40,9 +39,7 @@ const EventUsers = () => {
 
 	const convertToCSV = () => {
 		const columnNames = Object.keys(eventDetails.customers[0]);
-		// columnNames.unshift()
 		const opts = { fields: columnNames };
-		console.log(opts);
 		try {
 			const csv = parse(eventDetails.customers, opts);
 			setCSV(csv);
