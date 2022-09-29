@@ -85,12 +85,6 @@ function Business() {
       return;
     }
 
-    let tempDesc = description;
-    if(tempDesc.length > 100){
-      alert("Length should be less than 100 characters!")
-      return;
-    }
-
     try {
       const res = await fetch(
         "/business/create/business",
