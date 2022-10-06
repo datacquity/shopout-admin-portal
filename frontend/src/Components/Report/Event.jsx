@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import { useNavigate } from "react-router-dom";
 // import { Button, Container, Table } from "react-bootstrap";
 
-const Event = () => {
+const Event = ({url, type}) => {
 	const [data, setData] = useState([]);
 	const [filtered, setFiltered] = useState([]);
 	const [startDate, setStartDate] = useState();
@@ -13,14 +13,14 @@ const Event = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		console.log(url)
 		fetchData();
 	}, []);
 
 	const fetchData = async () => {
-		const res = await fetch("/user/demoBooking/get/all-demo-booking");
+		const res = await fetch(url);
 		const data = await res.json();
 		setData(data.demoBookings);
-		console.log(data)
 	};
 
 	function convert_date(s) {
@@ -41,7 +41,7 @@ const Event = () => {
 	};
 
 	const handleEventClick = (id) => {
-		navigate("/users", { state: { id } });
+		navigate("/users", { state: { id, url: type === "CurrentEvent" ? "/single-demo" : '/single-archive-demo' } });
 	};
 
 	return (

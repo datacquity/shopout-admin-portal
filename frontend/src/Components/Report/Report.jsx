@@ -8,6 +8,11 @@ const Report = () => {
 			<div className="navigation_header">
 				<ul>
 					<li>
+						<NavLink activeclassname="active" to="/previousevents">
+							Previous Events
+						</NavLink>
+					</li>
+					<li>
 						<NavLink activeclassname="active" to="/event">
 							Events
 						</NavLink>

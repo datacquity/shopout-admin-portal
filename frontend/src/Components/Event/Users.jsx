@@ -13,15 +13,17 @@ const EventUsers = () => {
 	const [csv, setCSV] = useState("");
 
 	const {
-		state: { id },
+		state: { id, url },
 	} = useLocation();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await fetch(`/user/demoBooking/get/single-demo/${id}`)
+				console.log(id)
+				const res = await fetch(`/user/demoBooking/get/${url}/${id}`)
 				const data = await res.json();
 				
+				console.log(data)
 				const customers = data.demobooking.customers.map((customer) => {
 					const {firstName, lastName, phone} = customer.user;
 					return { firstName, lastName, phone};

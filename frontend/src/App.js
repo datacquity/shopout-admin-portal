@@ -36,7 +36,8 @@ function App() {
 					<Route exact path="/store" element={<Store />}></Route>
 					<Route exact path="/video" element={<Video />}></Route>
 					<Route exact path="/report" element={<Report />}></Route>
-					<Route exact path="/event" element={<Event />}></Route>
+					<Route exact path="/event" element={<Event url="/user/demoBooking/get/all-demo-booking" />} type="CurrentEvent"></Route>
+					<Route exact path="/previousevents" element={<Event url="/user/demoBooking/get/all-archive-demo-booking" type="PreviousEvent" />}></Route>
 					<Route exact path="/orders" element={<Orders />}></Route>
 					<Route exact path="/booking" element={<Booking />}></Route>
 					<Route exact path="/product" element={<Product />}></Route>
