@@ -32,18 +32,18 @@ const Product = () => {
 	for (let i = 0; i < beforePrice.length; i++) {
 		const beforeDiscountPrice = beforePrice[i];
 		const discountAmount =
-			Math.round((beforeDiscountPrice * 0.01 * discount[i]) / 10) * 10;
-		const discountedPrice = beforeDiscountPrice - discountAmount;
-		const taxAmount = Math.round(discountedPrice * 0.01 * sgst);
+			(((beforeDiscountPrice * 0.01 * discount[i]).toFixed(2) / 10) * 10).toFixed(2);
+		const discountedPrice = (beforeDiscountPrice - discountAmount);
+		const taxAmount = (discountedPrice * 0.01 * sgst).toFixed(2);
 		const finalAmount =
-			Math.round((discountedPrice + 2 * taxAmount + deliveryCharge[i]) / 100) *
-			10;
-		console.log(finalAmount);
+			(((discountedPrice + 2 * taxAmount + deliveryCharge[i]) / 100).toFixed(2) *
+			10).toFixed(2);
 
-		tax.push(2 * taxAmount);
-		total.push(discountedPrice);
+		tax.push((2 * taxAmount).toFixed(2));
+		total.push(discountedPrice.toFixed(2));
 		discount1.push(discountAmount);
 		payTotal.push(finalAmount);
+		console.log(finalAmount)
 	}
 
 	function convert_date(s) {
