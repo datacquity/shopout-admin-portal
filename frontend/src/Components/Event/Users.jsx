@@ -19,11 +19,9 @@ const EventUsers = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				console.log(id)
 				const res = await fetch(`/user/demoBooking/get/${url}/${id}`)
 				const data = await res.json();
 				
-				console.log(data)
 				const customers = data.demobooking.customers.map((customer) => {
 					const {firstName, lastName, phone} = customer.user;
 					return { firstName, lastName, phone};

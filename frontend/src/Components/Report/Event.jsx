@@ -13,7 +13,6 @@ const Event = ({url, type}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		console.log(url)
 		fetchData();
 	}, []);
 
@@ -41,7 +40,7 @@ const Event = ({url, type}) => {
 	};
 
 	const handleEventClick = (id) => {
-		navigate("/users", { state: { id, url: type === "CurrentEvent" ? "/single-demo" : '/single-archive-demo' } });
+		navigate("/users", { state: { id, url: url.includes('archive') ? "/single-archive-demo" : '/single-demo' } });
 	};
 
 	return (

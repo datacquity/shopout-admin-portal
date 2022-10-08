@@ -43,7 +43,6 @@ const Product = () => {
 		total.push(discountedPrice.toFixed(2));
 		discount1.push(discountAmount);
 		payTotal.push(finalAmount);
-		console.log(finalAmount)
 	}
 
 	function convert_date(s) {
