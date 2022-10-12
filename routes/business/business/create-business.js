@@ -10,6 +10,7 @@ router.post("/business", async (req, res) => {
 	try {
 		let {
 			tags,
+			GSTIN,
 			brands,
 			name,
 			phone,
@@ -28,9 +29,6 @@ router.post("/business", async (req, res) => {
 		brands = brands.toString().toLowerCase().split(",");
 		category = category.toString();
 		name = name.toLowerCase();
-
-		// console.log(businessData.title_image);
-		// console.log(businessData.images);
 
 		if (description.split(" ").length > 100) {
 			return res
@@ -55,6 +53,7 @@ router.post("/business", async (req, res) => {
 			display_name,
 			hasCallNow,
 			isFashion,
+			GSTIN
 		});
 
 		newBusiness.save((err, savedBusiness) => {

@@ -14,6 +14,8 @@ router.post("/create", async (req, res) => {
 		DemoBooking.findOne({ _id: productData.event }, (err, foundBooking) => {
 			// console.log("data:", foundBooking);
 			const {
+				name, 
+				description,
 				image,
 				quantity,
 				price,
@@ -28,9 +30,9 @@ router.post("/create", async (req, res) => {
 
 			if (err) console.error(err);
 			else if (foundBooking) {
-				const { demoName, _id, description } = foundBooking;
+				const { _id } = foundBooking;
 				let newProduct = new Product({
-					name: demoName,
+					name,
 					event: _id,
 					desc: description,
 					image,

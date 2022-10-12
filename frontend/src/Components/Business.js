@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classes from "./Business.module.css";
 import { Form } from "react-bootstrap";
 
@@ -17,6 +17,7 @@ function Business() {
   const [image, setImage] = useState("");
   const [imageList, setImageList] = useState([]);
   const [isFashion, setIsFashion] = useState(false);
+  const gstNumberRef = useRef();
   // const [mainImageList,setMainImageList]=useState([]);
   const password = "shopout@123";
 
@@ -108,7 +109,8 @@ function Business() {
               phone: phoneNo,
               email,
               description,
-              isFashion
+              isFashion,
+              GSTIN: gstNumberRef.current.value
             },
           }),
         }
@@ -139,6 +141,16 @@ function Business() {
       <h1>Create a Business</h1>
       <div className={classes.content}>
         <form action="submit" onSubmit={submitHandler}>
+        <label htmlFor="fashion">Is Beauty</label>
+          <input
+            type="checkbox"
+            name="fashion"
+            id="fashion"
+            checked={isFashion}
+            onChange={(e) => {
+              setIsFashion(!isFashion)
+            }}
+          />
           <label htmlFor="businessName">Business Name</label>
           <input
             type="text"
@@ -150,15 +162,14 @@ function Business() {
             }}
             required
           />
-          <label htmlFor="fashion">Is Beauty</label>
+          <label htmlFor="gstNumber">GSTIN Number</label>
           <input
-            type="checkbox"
-            name="fashion"
-            id="fashion"
-            checked={isFashion}
-            onChange={(e) => {
-              setIsFashion(!isFashion)
-            }}
+            type="text"
+            name="gstNumber"
+            id="gstNumber"
+            placeholder="GSTIN Number"
+            ref={gstNumberRef}
+            required
           />
           <label htmlFor="titleName">Title Name</label>
           <input

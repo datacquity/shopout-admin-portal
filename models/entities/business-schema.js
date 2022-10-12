@@ -77,6 +77,10 @@ const businessSchema = new Schema({
 		type: Boolean,
 		default: false,
 	},
+	GSTIN: {
+		type: String,
+		required: true
+	}
 });
 
 businessSchema.index({ tags: 1 });

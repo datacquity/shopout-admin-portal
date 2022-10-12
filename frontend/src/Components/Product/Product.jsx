@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Product.css";
 
 const Product = () => {
+	const productNameRef = useRef();
+	const productDescriptionRef = useRef();
 	const [eventList, setEventList] = useState();
 	const [eventName, setEventName] = useState("");
-	const [productName, setProductName] = useState("");
-	const [description, setDescription] = useState("");
 	const [image, setImage] = useState("");
 	const [quantity, setQuantity] = useState();
 	const [variants, setVariants] = useState([]);
@@ -97,6 +97,7 @@ const Product = () => {
 
 	async function submitHandler(e) {
 		e.preventDefault();
+		console.log(productDescriptionRef.current.value)
 
 		const product = await fetch("/user/product/create", {
 			headers: {
@@ -108,8 +109,8 @@ const Product = () => {
 				productData: {
 					event: eventName,
 					price: beforePrice,
-					// name: productName,
-					// desc: description,
+					name: productNameRef.current.value,
+					description: productDescriptionRef.current.value,
 					image,
 					quantity,
 					variants,
@@ -147,6 +148,34 @@ const Product = () => {
 
 			<div className="content">
 				<form action="submit" onSubmit={submitHandler}>
+					<label htmlFor="fashion">Is Beauty</label>
+					<input
+						type="checkbox"
+						name="fashion"
+						id="fashion"
+						checked={isFashion}
+						onChange={(e) => {
+						setIsFashion(!isFashion)
+						}}
+					/>
+					<label htmlFor="productName">Product Name</label>
+					<input
+						type="text"
+						name="productName"
+						id="productName"
+						placeholder="Enter Product Name"
+						ref={productNameRef}
+						required
+					/>
+					<label htmlFor="productDescription">Product Description</label>
+					<input
+						type="text"
+						Description="productDescription"
+						id="productDescription"
+						placeholder="Enter Product Description"
+						ref={productDescriptionRef}
+						required
+					/>
 					<label htmlFor="event">Event Name-Date</label>
 					<select
 						name="event"
@@ -159,16 +188,6 @@ const Product = () => {
 						<option value="">Choose One</option>
 						{eventList}
 					</select>
-					<label htmlFor="fashion">Is Beauty</label>
-					<input
-						type="checkbox"
-						name="fashion"
-						id="fashion"
-						checked={isFashion}
-						onChange={(e) => {
-						setIsFashion(!isFashion)
-						}}
-					/>
 
 
 					<label htmlFor="Image">Image</label>
