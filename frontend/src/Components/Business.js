@@ -18,6 +18,7 @@ function Business() {
   const [imageList, setImageList] = useState([]);
   const [isFashion, setIsFashion] = useState(false);
   const gstNumberRef = useRef();
+  const commissionRef = useRef();
   // const [mainImageList,setMainImageList]=useState([]);
   const password = "shopout@123";
 
@@ -110,7 +111,8 @@ function Business() {
               email,
               description,
               isFashion,
-              GSTIN: gstNumberRef.current.value
+              GSTIN: gstNumberRef.current.value,
+              commission: commissionRef.current.value
             },
           }),
         }
@@ -168,7 +170,19 @@ function Business() {
             name="gstNumber"
             id="gstNumber"
             placeholder="GSTIN Number"
+            maxLength="15"
             ref={gstNumberRef}
+            required
+          />
+          <label htmlFor="commission">Commission</label>
+          <input
+            type="number"
+            name="commission"
+            id="commission"
+            placeholder="Enter Commission"
+            max="99"
+            min="0"
+            ref={commissionRef}
             required
           />
           <label htmlFor="titleName">Title Name</label>

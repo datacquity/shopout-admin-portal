@@ -80,6 +80,11 @@ const businessSchema = new Schema({
 	GSTIN: {
 		type: String,
 		required: true
+	},
+	commission:{
+		type: Number,
+		default: 0,
+		max: 99	
 	}
 });
 

@@ -24,6 +24,7 @@ router.post("/business", async (req, res) => {
 			display_name,
 			hasCallNow,
 			isFashion,
+			commission
 		} = req.body.businessData;
 		tags = tags.toString().toLowerCase().split(",");
 		brands = brands.toString().toLowerCase().split(",");
@@ -53,7 +54,8 @@ router.post("/business", async (req, res) => {
 			display_name,
 			hasCallNow,
 			isFashion,
-			GSTIN
+			GSTIN,
+			commission
 		});
 
 		newBusiness.save((err, savedBusiness) => {
