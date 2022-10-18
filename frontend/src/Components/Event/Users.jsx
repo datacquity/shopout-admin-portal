@@ -61,6 +61,7 @@ const EventUsers = () => {
 					? `Users who attended the event ${eventDetails.eventName}!`
 					: "No Users Found!"}
 			</h2>
+			
 			{customers.length ? (
 				<tbody>
 					<tr>

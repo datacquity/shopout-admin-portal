@@ -19,6 +19,7 @@ function Business() {
   const [isFashion, setIsFashion] = useState(false);
   const gstNumberRef = useRef();
   const commissionRef = useRef();
+  const businessUrlRef = useRef();
   // const [mainImageList,setMainImageList]=useState([]);
   const password = "shopout@123";
 
@@ -112,7 +113,8 @@ function Business() {
               description,
               isFashion,
               GSTIN: gstNumberRef.current.value,
-              commission: commissionRef.current.value
+              commission: commissionRef.current.value,
+              businessUrl: businessUrlRef.current.value,
             },
           }),
         }
@@ -195,6 +197,15 @@ function Business() {
             onChange={(e) => {
               setDisplayName(e.target.value);
             }}
+          />
+          <label htmlFor="businessUrl">Business Url</label>
+          <input
+            type="text"
+            name="businessUrl"
+            id="businessUrl"
+            placeholder="Business URL"
+            ref={businessUrlRef}
+            required
           />
           <label htmlFor="email">Email</label>
           <input

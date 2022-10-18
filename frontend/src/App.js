@@ -14,6 +14,7 @@ import Booking from "./Components/Report/Booking.jsx";
 import Product from "./Components/Product/Product.jsx";
 import EventUsers from "./Components/Event/Users.jsx";
 import Orders from "./Components/Orders/Orders";
+import ProductOrders from "./Components/ProductOrders/ProductOrders.js";
 
 function App() {
 	return (
@@ -42,6 +43,7 @@ function App() {
 					<Route exact path="/booking" element={<Booking />}></Route>
 					<Route exact path="/product" element={<Product />}></Route>
 					<Route exact path="/users" element={<EventUsers />}></Route>
+					<Route exact path="/product-orders/:id" element={<ProductOrders />}></Route>
 				</Routes>
 			</main>
 		</div>

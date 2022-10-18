@@ -85,6 +85,9 @@ const businessSchema = new Schema({
 		type: Number,
 		default: 0,
 		max: 99	
+	},
+	businessUrl: {
+		type: String,	
 	}
 });
 

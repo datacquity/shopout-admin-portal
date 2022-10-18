@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import DownloadCSV from "../UI/DownloadCSV";
 import { parse } from "json2csv";
+import {useNavigate} from 'react-router-dom'
+import OrderRow from './OrderRow/OrderRow'
 import "./Orders.css";
 
 const Orders = () => {
@@ -10,6 +12,8 @@ const Orders = () => {
 	const [startDate, setStartDate] = useState();
 	const [endDate, setEndDate] = useState();
 	const [csv, setCSV] = useState("");
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -43,6 +47,10 @@ const Orders = () => {
 			console.log(error);
 		}
 	};
+
+	const goToProductOrders = (orderID) => {
+		navigate(`/product-orders/${orderID}`)
+	}
 
 	return (
 		<div className="orders">
@@ -80,25 +88,11 @@ const Orders = () => {
 					{filtered.length
 						? filtered.map((order, i) => {
 								return (
-									<tr key={i}>
-										<td>{`${order.user.firstName} ${order.user.lastName}`}</td>
-										<td>{order.email}</td>
-										<td>{order.date.toString().slice(0, 10)}</td>
-										<td>{order.address}</td>
-										<td>{order.amount}</td>
-										<td>{order.status}</td>
-									</tr>
+									<OrderRow goToProductOrders={goToProductOrders} order={order}/>
 								);
 						  })
 						: orders.map((order, i) => (
-								<tr key={i}>
-									<td>{`${order.user.firstName} ${order.user.lastName}`}</td>
-									<td>{order.email}</td>
-									<td>{order.date.toString().slice(0, 10)}</td>
-									<td>{order.address}</td>
-									<td>{order.amount}</td>
-									<td>{order.status}</td>
-								</tr>
+							<OrderRow goToProductOrders={goToProductOrders} order={order}/>
 						  ))}
 				</tbody>
 				<DownloadCSV convertToCSV={convertToCSV} csv={csv} details={{eventName: "Orders"}}/>
