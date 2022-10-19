@@ -18,17 +18,62 @@ router.get("/orders/all", async (req, res) => {
   }
 });
 
+router.post("/orders/date", async (req, res) => {
+  try {
+    const { date } = req.body;
+
+    const orders = await Order.find({})
+      .populate({
+        path: "product",
+        populate: {
+          path: "product",
+        },
+      })
+      .populate({
+        path: "user",
+        select: ["firstName", "lastName", "email", "phone"],
+      })
+      .exec();
+
+    const finalOrders = orders.filter((order) => {
+      return (
+        new Date(order.date).toDateString() === new Date(date).toDateString()
+      );
+    });
+
+    finalOrders.forEach((order) => {
+      let finalProducts = order.product.filter((prod) => prod.quantity > 0);
+      order.product = finalProducts;
+    });
+
+    res.json({ orders: finalOrders });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.get("/single/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const order = await Order.findById(id)
-      .populate({ path: "product.product" })
-      .exec();
+    const order = await Order.findById(id);
+
     if (!order) {
       return res.status(400).json({ message: "Order not found!" });
     }
 
-    res.status(200).json({ products: order.product });
+    const quantities = order.product.map((product) => product.quantity);
+
+    const finalOrder = await Order.findById(id)
+      .populate({ path: "product.product" })
+      .exec();
+
+    finalOrder.product.forEach((product, idx) => {
+      product.product.quantity = quantities[idx];
+    });
+
+    const finalProducts = finalOrder.product;
+
+    res.status(200).json({ products: finalProducts });
   } catch (e) {
     console.log(e);
   }

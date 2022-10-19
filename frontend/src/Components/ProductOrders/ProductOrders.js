@@ -8,6 +8,7 @@ const ProductOrders = () => {
   const [products, setProducts] = useState([]);
   const [csv, setCSV] = useState("");
 
+  const grandTotal = 0;
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`/user/order/single/${params.id}`);
@@ -25,10 +26,12 @@ const ProductOrders = () => {
         } = product.product;
         const totalPrice = quantity * price;
         const discountedPrice = totalPrice - (discount / 100) * totalPrice;
+        const finalPriceWithDelivery =
+          discountedPrice + parseInt(deliveryCharge);
         const finalPrice =
-          discountedPrice +
-          ((cgst + sgst) / 100) * discountedPrice +
-          deliveryCharge;
+          finalPriceWithDelivery +
+          ((cgst + sgst) / 100) * finalPriceWithDelivery;
+
         return {
           id: _id,
           srNo: index + 1,
