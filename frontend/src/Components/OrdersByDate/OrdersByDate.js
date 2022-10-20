@@ -31,7 +31,7 @@ const OrdersByDate = () => {
       );
       console.log(orders);
       const customisedOrders = orders.map((order) => {
-        let { amount, status, date, address, product } = order;
+        let { amount, status, date, address, product, email } = order;
         const { phone, firstName, lastName } = order.user;
 
         let obj = {};
@@ -44,10 +44,11 @@ const OrdersByDate = () => {
 
         address = address.replaceAll("\n", " ");
         return {
-          phone,
-          date,
-          address,
           name: (firstName && firstName) + (lastName && lastName),
+          email,
+          phone,
+          address,
+          date,
           amount,
           status,
           ...obj,
