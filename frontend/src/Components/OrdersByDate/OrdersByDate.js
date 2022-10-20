@@ -31,15 +31,18 @@ const OrdersByDate = () => {
       );
       console.log(orders);
       const customisedOrders = orders.map((order) => {
-        const { amount, status, date, address, product } = order;
+        let { amount, status, date, address, product } = order;
         const { phone, firstName, lastName } = order.user;
 
         let obj = {};
         product.forEach((prod, idx) => {
           obj[`Quantity${idx + 1}`] = prod.quantity;
-          obj[`Product${idx + 1}`] = prod.product.name;
+          obj[
+            `Product${idx + 1}`
+          ] = `${prod.product.name}(${prod.product.variants[0]})`;
         });
 
+        address = address.replaceAll("\n", " ");
         return {
           phone,
           date,
