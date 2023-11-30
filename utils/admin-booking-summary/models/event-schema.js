@@ -19,6 +19,7 @@ const demoBookingSchema = new Schema({
         type: String,
         required: true
     },
+    video: { type: String },
     demoDate: {
         type: Date,
         required: true
